@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "crm-app.name" -}}
+{{- define "crm-app-proccessing.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "crm-app.fullname" -}}
+{{- define "crm-app-proccessing.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "crm-app.chart" -}}
+{{- define "crm-app-proccessing.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "crm-app.labels" -}}
-helm.sh/chart: {{ include "crm-app.chart" . }}
-{{ include "crm-app.selectorLabels" . }}
+{{- define "crm-app-proccessing.labels" -}}
+helm.sh/chart: {{ include "crm-app-proccessing.chart" . }}
+{{ include "crm-app-proccessing.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "crm-app.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "crm-app.name" . }}
+{{- define "crm-app-proccessing.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "crm-app-proccessing.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "crm-app.serviceAccountName" -}}
+{{- define "crm-app-proccessing.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "crm-app.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "crm-app-proccessing.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
